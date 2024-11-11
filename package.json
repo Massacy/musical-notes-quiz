@@ -1,0 +1,24 @@
+{
+  "scripts": {
+    "dev": "nodemon server.js",
+    "test": "mocha --require test/setup.js",
+    "test:watch": "mocha --watch",
+    "lint": "eslint --fix --ext .js .",
+    "format": "prettier --write .",
+    "db:migrate": "knex migrate:latest",
+    "db:migrate-make": "knex migrate:make",
+    "db:seed": "knex seed:run",
+    "db:seed-make": "knex seed:make",
+    "db:reset": "knex migrate:rollback --all && knex migrate:latest && knex seed:run"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "knex": "^3.1.0",
+    "pg": "^8.13.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}
