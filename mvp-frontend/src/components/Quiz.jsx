@@ -47,7 +47,7 @@ function Quiz() {
 
     useEffect(() => {
         if (note) {
-            abcjs.renderAbc("notes-area", note?.abcjs_name);
+            abcjs.renderAbc("notes-area", note?.abcjs_name, {scale: 3});
         }
     }, [note]);
 
@@ -178,13 +178,6 @@ function Quiz() {
                             <Button onClick={defaultStep}>開始</Button>
                         </>
                     )
-            }
-
-            {/*<div id={'key-area'} >*/
-            }
-            {/*    <button onClick={tmp}>click here</button>*/
-            }
-            {/*</div>*/
             }
         </>
     )
