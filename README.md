@@ -22,12 +22,12 @@ npm run dev
 createdb musical_notes_quiz
 ````
 `mvp-backend/db/`配下に.env.developmentファイルを作成し、以下の設定をしておきます。
->POSTGRES_USER={あなたのuser名} 
->POSTGRES_DB=musical_notes_quiz
-
+```.env
+POSTGRES_USER={あなたのuser名} 
+POSTGRES_DB=musical_notes_quiz
+```
 必要なmoduleをinstallします。
 ```zsh
-createdb 
 cd mvp-backend
 npm install 
 ```
