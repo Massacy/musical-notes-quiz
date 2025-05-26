@@ -31,7 +31,6 @@ function Quiz() {
     const [notes, setNotes] = useState([]); // 問題で扱う音符の種類すべて
     const [quizNb, setQuizNb] = useState(0); //現在の何問目
     const [selectedMidiNb, setSelectedMidiNb] = useState(); // 鍵盤で押された音(midiNumber)
-    // const [isCorrect, setIsCorrect] = useState(null);
 
     const navigate = useNavigate();
 
@@ -42,6 +41,7 @@ function Quiz() {
             const res = await fetch(base_url + "/api/notes");
             const data = await res.json();
             setNotes(data);
+            // console.log("all notes : ", data);
         })();
     }, [])
 
@@ -54,7 +54,7 @@ function Quiz() {
     const selectGameMode = () => {
         const gameModeNb = document.getElementById("game-mode");
         setGameMode(parseInt(gameModeNb.value));
-        console.log("gameModeNb.value", gameModeNb.value);
+        // console.log("gameModeNb.value", gameModeNb.value);
     }
 
     //　鍵盤の表示設定
@@ -76,7 +76,7 @@ function Quiz() {
             piano.start({note: midiNumber});
             const resTime = Date.now() - timeRecord;
             const isCorrect = note?.midi_name === midiNumber; // 正誤判定
-            const res = {iso_name: note?.iso_name, time: resTime, is_correct: isCorrect}
+            const res = {note_id: note?.id, iso_name: note?.iso_name, time: resTime, is_correct: isCorrect,}
             setResult(res);
             setResults([...results, res]);
         }
@@ -135,11 +135,33 @@ function Quiz() {
     //     setIsOpenModal(!isOpenModal);
     // }
 
-    const handleClose = (e, reason) => {
+    const handleClose = async (e, reason) => {
         if (reason === 'backdropClick') return;
         setIsOpenModal(false);
-        if (quizNb === gameMode)
+        if (quizNb === gameMode) {
+            console.log("END --");
+            const body = {
+                user_id: 1,
+                practice_mode: gameMode,
+                results : results
+            }
+            const options = {
+                method: "POST",
+                headers: {
+                    accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(body),
+            }
+            const res = await fetch(base_url + "/api/scores", options);
+            if (!res.ok) {
+                throw new Error(`HTTP error! status: ${res.status}`);
+            }
+            console.log("post /api/scores", res);
+            // const data = await res.json();
+            // console.log("end :", data);
             navigate('/result', {state: results});
+        }
         generateQuiz();
     }
 
@@ -170,7 +192,7 @@ function Quiz() {
                             {/*    <MenuItem value={30}>30問</MenuItem>*/}
                             {/*</Select>*/}
                             <select id="game-mode" onChange={selectGameMode}>
-                                <option value={1}>1問</option>
+                                <option value={3}>3問</option>
                                 <option value={10}>10問</option>
                                 <option value={20}>20問</option>
                                 <option value={30}>30問</option>

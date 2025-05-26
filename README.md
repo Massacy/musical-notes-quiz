@@ -43,6 +43,13 @@ npm run dev
 
 これで`http://localhost:5173` にアクセスして、ゲームを開始することができます。
 
+## 使用技術
+- JavaScript
+- postgresql
+- Knex.js
+- React
+
+
 ## 使用したライブラリ
 - abcjs :五線譜上に音符を表示
 - react-piano : クリック可能な鍵盤の表示
@@ -56,3 +63,5 @@ npm run dev
 - ゲーム結果の履歴の表示
 - 全体のUIの修正
 - アカウント毎での記録、ログイン機能
+- ヘ音記号版
+- 長調、短調、全パターンの網羅

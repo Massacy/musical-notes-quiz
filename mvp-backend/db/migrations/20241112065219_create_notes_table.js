@@ -4,7 +4,7 @@
  */
 exports.up = async function(knex) {
   await knex.schema.createTable("notes", (table) => {
-      table.increments("id");
+      table.increments("id").primary();
       table.string("abcjs_name").notNullable();
       table.string("iso_name").notNullable();
       table.integer("midi_name").notNullable();

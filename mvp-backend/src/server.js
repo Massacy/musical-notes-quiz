@@ -15,6 +15,14 @@ app.get("/api/notes", async (req, res) => {
     // res.status(200).send({notes: 'notes here'});
 })
 
+app.post("/api/scores", async (req, res) => {
+    console.log("POST /api/scores");
+    // const data = await db.insert
+
+    res.status(201).send({scores : 'scores here'});
+
+})
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server listening on: http://localhost:${PORT}/`);
